@@ -9,5 +9,5 @@ Colaboradores (Adicionem OK Abaixo)
 - Ricardo JL Rufino ()
 - Stanley ()
 - Juniel ()
-- Lorischider ()
+- Lorischider (OK)
 
