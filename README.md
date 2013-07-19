@@ -6,8 +6,8 @@ Projeto da Disciplina - Engenharia de Software do Centro de Informática da UFPE
 
 Colaboradores (Adicionem OK Abaixo)
 ===============================================
-Ricardo JL Rufino ()
-Stanley ()
-Juniel ()
-Lorischider ()
+- Ricardo JL Rufino ()
+- Stanley ()
+- Juniel ()
+- Lorischider ()
 
