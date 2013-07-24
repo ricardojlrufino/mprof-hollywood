@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>Projeto Hollywood</title>
+	<link rel="stylesheet" href="assets/filme.setup.css">
+	<link rel="stylesheet" href="assets/filme.style.css">
+	<meta name="robots" content="noindex,nofollow">
+	
+	
+	<% javascript 'modernizr-2.0.min.js' %>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+	<% javascript 'filmes.index.js' %>
+	<% javascript 'jquery.jc.videogallery.js' %>
+	<%= yield(:head) %>
+</head>
+
+<body>
+	
+	<div id="container">
+	
+		<div id="next" data-modify="1" class="control">
+			<span>Próximo video</span>
+		</div>
+	
+		<div id="back" class="control">
+			<span>Voltar a Página Inicial</span>
+		</div>
+		
+		<div id="prev" data-modify="-1" class="control">
+			<span>Vídeo Anterior</span>
+		</div>
+		
+		<div id="loading">
+			Carregando galeria&hellip;
+		</div>
+		
+		<div id="warning">
+			Seu navegador não Suporta 3D. Use <a href="http://google.com/chrome">Google Chrome</a>.
+		</div>
+
+	    <div id="main" role="main">
+	
+			<ul id="gallery" class="clearfix">
+				
+				<% @filmes.each do |filme| %>	      
+					<li>
+						<div>	
+							<section>
+							<img src="<%= filme.imagem %>" />
+							<span class="back"></span>
+							<div class="title">
+								<h3><%= filme.titulo %> <span class="after"></span></h3>
+							</div>
+							<video preload="none" width="640" height="360" src="assets/filmes/godofwar.mp4"></video>
+							</section>
+						</div>
+					</li>			      
+			    <% end %>
+			
+				<li>
+					<div>
+						<section>	
+						<img src="assets/filmes/warhammer.jpg" />
+						<span class="back"></span>
+						<div class="title">
+							<h3>Warhammer<span class="after"></span></h3>
+						</div>
+						<video preload="none" width="640" height="360" src="assets/filmes/warhammer.mp4"></video>
+						</section>
+					</div>
+				</li>
+
+			
+				<li>
+					<div>	
+						<section>
+						<img src="assets/filmes/finalfantasy.jpg" />
+						<span class="back"></span>
+						<div class="title">
+							<h3>Final Fantasy<span class="after"></span></h3>
+						</div>
+						<video preload="none" width="640" height="360" src="assets/filmes/finalfantasy.mp4"></video>
+						</section>
+					</div>
+				</li>
+			
+				<li>
+					<div>	
+						<section>
+						<img src="assets/filmes/godofwar.jpg" />
+						<span class="back"></span>
+						<div class="title">
+							<h3>God of War<span class="after"></span></h3>
+						</div>
+						<video preload="none" width="640" height="360" src="assets/filmes/godofwar.mp4"></video>
+						</section>
+					</div>
+				</li>
+				
+			</ul>
+
+	    </div>
+	
+		<footer id="footer">
+			
+			<p>Projeto Hollywood - Engenharia de Software do Centro de Informática da UFPE de 2013.2</p>
+			
+		</footer>
+
+	</div>
+
+	
+
+
+</body>
+</html>

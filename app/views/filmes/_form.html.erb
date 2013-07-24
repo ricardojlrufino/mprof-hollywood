@@ -1,0 +1,179 @@
+<style>
+	.bigdrop.select2-container .select2-results {max-height: 300px;}
+	.bigdrop .select2-results {max-height: 300px;}
+	.movie-image { margin-right: 8px; }
+	.movie-title { font-weight: bold; font-size: medium}
+	.movie-text { /*font-size: .8em;color: #eee;*/}
+</style>
+
+<script>
+	function movieFormatResult(movie) {
+		var markup = "<div>";
+		// movie.title.$t
+		// movie.link[0].href
+		// movie.media$group.media$description.$t
+
+		var s = '';
+		s += '<img class="movie-image" src="' + movie.media$group.media$thumbnail[0].url + '" width="' + movie.media$group.media$thumbnail[0].width + '" height="' + movie.media$group.media$thumbnail[0].height + '" alt="' + movie.media$group.media$thumbnail[0].yt$name + '" align="left"/>';
+		s += '<span class="movie-title">' + movie.title.$t + '</span><br/>';
+		s += '<b>Autor:</b> ' + movie.author[0].name.$t + '<br/>';
+		s += '<b>Data:</b> ' + new Date(movie.published.$t).toLocaleDateString() + '<br/>';
+		s += '<b>Duração:</b> ' + Math.floor(movie.media$group.yt$duration.seconds / 60) + ':' + (movie.media$group.yt$duration.seconds % 60) + ' (' + movie.media$group.yt$duration.seconds + ' seconds)<br/>';
+		// s += '<br/><span class="movie-text">' + movie.media$group.media$description.$t.replace(/\n/g, '</span><br/>');
+        s += '<br/>';
+
+		markup += s;
+		markup += "</div>"
+
+		return markup;
+	}
+
+	function movieFormatSelection(movie) {
+		return movie.title.$t;
+	}
+	
+	
+	function showMovie(){
+	    alert($('#filme_url').val());
+	}
+	
+	function movieSelected(movie){
+        $('#filme_titulo').val(movie.title.$t);
+        $('#filme_url').val(movie.media$group.media$player.url);
+        // $('#filme_imagem').val(movie.media$group.media$thumbnail[0].url);
+        
+        // Pegar imagem: ref: http://stackoverflow.com/a/2068371/955857
+        var id = movie.id.$t.split(':video:')[1];
+        var imagem = 'http://img.youtube.com/vi/'+id+'/mqdefault.jpg';
+        $('#filme_imagem').val(imagem);
+	}
+	
+	/** Quando clicar no popup das imagens */
+    function onSelectImage(event){
+        
+        var imagem = $(event.target).attr('src');
+        
+        var input = $('input[name="filme[imagem]"]');
+    
+        input.val(imagem);  
+        
+    }
+
+	$(function() {
+		$("#busca_video").select2({
+			placeholder : "Buscar vídeo no youtube",
+			minimumInputLength : 4,
+			ajax : {// instead of writing the function to execute the request we use Select2's convenient helper
+				url : "https://gdata.youtube.com/feeds/api/videos",
+				dataType : 'json',
+				data : function(term, page) {
+					return {
+						q : term, // search term
+						alt : 'json',
+						'orderby' : 'published',
+						'start-index' : 11,
+						'max-results' : 10,
+						v : 2
+					};
+				},
+				results : function(data, page) {// parse the results into the format expected by Select2.
+					// since we are using custom formatting functions we do not need to alter remote JSON data
+					return {
+						results : data.feed.entry
+					};
+				}
+			},
+			// initSelection: function(element, callback) {
+			// // the input tag has a value attribute preloaded that points to a preselected movie's id
+			// // this function resolves that id attribute to an object that select2 can render
+			// // using its formatResult renderer - that way the movie name is shown preselected
+			// var id=$(element).val();
+			// if (id!=="") {
+			// $.ajax("http://api.rottentomatoes.com/api/public/v1.0/movies/"+id+".json", {
+			// data: {
+			// apikey: "ju6z9mjyajq2djue3gbvv26t"
+			// },
+			// dataType: "jsonp"
+			// }).done(function(data) { callback(data); });
+			// }
+			// },
+			formatResult : movieFormatResult, // omitted for brevity, see the source of this page
+			formatSelection : movieFormatSelection, // omitted for brevity, see the source of this page
+			dropdownCssClass : "bigdrop", // apply css that makes the dropdown taller
+			escapeMarkup : function(m) {
+				return m;
+			} // we do not want to escape markup since we are displaying html in results
+		});
+		
+		
+		// Quando algum elemento so select for selecionado
+		$("#busca_video").on("select2-selecting", function(event) {
+		    var movie = event.object;
+		    movieSelected(movie);
+		    return true;
+		});
+		
+	});
+
+</script>
+
+<%= simple_form_for(@filme) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+    
+    <div class="control-group string optional">
+        <input id="busca_video" type="text" style="width:600px" />
+    </div>
+
+	<%= f.input :titulo, :input_html => {:style=> 'width: 600px'}%>
+	
+    
+    <%= f.input :url,:wrapper => :append do %>
+        <%= f.input_field :url, :style=> 'width: 400px'  %>
+        <a href="javascript:showMovie();" title="Abrir Vídeo"><span class="add-on"><i class="icon-play-circle"></i></span></a>
+    <% end %>
+    	
+	<%= f.input :imagem, :wrapper => :append do %>
+        <%= f.input_field :imagem, :style=> 'width: 400px'  %>
+        <a href="#dialog-images" data-toggle="modal" title="Selecionar Imagem"><span class="add-on"><i class="icon-search"></i></span></a>
+    <% end %>
+
+	<%= f.input :conteudo , :input_html => {:style=> 'width: 400px'} %>
+
+</div>
+
+<div class="form-actions">
+	<%= f.button :submit %>
+</div>
+
+<% end %>
+
+
+<!-- Modal -->
+<div id="dialog-images" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Imagens Cadastradas</h3>
+  </div>
+  <div class="modal-body">
+    
+    <div class="row-fluid">
+        <ul class="thumbnails">
+            <% @images.each do |image| %>
+            <li class="span3">
+                <a href="javascript:void(0):" data-dismiss="modal" onclick="onSelectImage(event);" class="thumbnail"> 
+                    <%= image_tag "filmes/#{image.split('/').last}", :size => "260x180" %> 
+                </a>
+            </li>
+            <% end %>
+        </ul>
+    </div>    
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <!-- <button class="btn btn-primary">Usar</button> -->
+  </div>
+</div>
+ 
