@@ -7,6 +7,10 @@ class FilmesController < ApplicationController
     @filmes = Filme.all
     render :layout => false
   end
+  
+  def list
+    @filmes = Filme.all
+  end
 
   # GET /filmes/1
   # GET /filmes/1.json
@@ -72,6 +76,6 @@ class FilmesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def filme_params
-      params.require(:filme).permit(:titulo, :url, :imagem, :conteudo)
+      params.require(:filme).permit(:titulo, :url, :imagem, :conteudo, :categoria, :tipo, :sala, :inicio, :fim)
     end
 end

@@ -9,8 +9,30 @@ html, body, #container {
 }
 
 body {
-    background: #7c7c7c url('../img/bg.png') 50% 0%;
-    -webkit-transition: background-color linear 4s;
+    /*background: #7c7c7c url('/gallery/bg.png') 50% 0%;*/
+    /*-webkit-transition: background-color linear 4s;*/
+    
+    background-color: rgb(111, 121, 141);
+        
+/*  /* IE10 Consumer Preview  */ */
+    background: url(gallery/fundo-noise.png), -ms-radial-gradient(center, circle farthest-corner, rgb(111, 121, 141) 0%, rgb(22, 42, 60) 100%);
+    
+    /* Mozilla Firefox  */
+    background: url(gallery/fundo-noise.png), -moz-radial-gradient(center, circle farthest-corner, rgb(111, 121, 141) 0%, rgb(22, 42, 60) 100%);
+    
+    /* Opera  */
+    background: url(gallery/fundo-noise.png), -o-radial-gradient(center, circle farthest-corner, rgb(111, 121, 141) 0%, rgb(22, 42, 60) 100%);
+    
+    /* Webkit (Safari/Chrome 10)  */
+    background: url(gallery/fundo-noise.png), -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #B0C5EB), color-stop(1, #31597E));
+    
+    /* Webkit (Chrome 11+)  */
+    background: url(gallery/fundo-noise.png), -webkit-radial-gradient(center, circle farthest-corner, rgb(111, 121, 141) 0%, rgb(22, 42, 60) 100%);
+    
+/* /*   W3C Markup, IE10 Release Preview  */ */
+    background-image: radial-gradient(circle farthest-corner at center, #B0C5EB 0%, #31597E 100%);
+}    
+    
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
 	font-size: 16px;
@@ -162,7 +184,7 @@ h1, h2, h3 {
 					    opacity: 0;
 					    bottom: 0;
 					    display: block;
-					    background: url('../img/arrow.png') no-repeat 100% 50%;
+					    background: url('gallery/arrow.png') no-repeat 100% 50%;
 					    height: 30px;
 					    -webkit-transition: all 0.3s ease-out;
 					    -webkit-transition-delay: 0s;
@@ -179,6 +201,14 @@ h1, h2, h3 {
 			    left: 0;
 			    display: none;
 			}
+			
+            #gallery > li iframe {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
 
 			#gallery > li .play {
 			    z-index: 999;
@@ -188,7 +218,7 @@ h1, h2, h3 {
 			    left: 50% !important;
 			    margin-top: -50px;
 			    margin-left: -50px;
-			    background: rgba(0,0,0,0.8) url('../img/video-controls.png') no-repeat 50% 0;
+			    background: rgba(0,0,0,0.8) url('gallery/video-controls.png') no-repeat 50% 0;
 			    position: absolute;
 			    -webkit-transition: all 0.5s ease-out;
 			    cursor: pointer;
@@ -197,6 +227,16 @@ h1, h2, h3 {
 			    border: 5px solid white;
 			    border-radius: 999px;
 			}
+			
+			#gallery > li .details {
+                position: absolute;
+                top: 0;
+                background: black;
+                width: 630px;
+                opacity: 0;
+                color: white;
+                padding: 5px;
+            }
 
 /*********************************************** 
  * Gallery: Grid
@@ -295,6 +335,11 @@ h1, h2, h3 {
 			.stack #main #gallery > li .play:hover {
 			    -webkit-transform: scale(1);
 			}
+			
+    		.stack #main #gallery > li.current .details {
+                opacity: 0.5;
+            }
+
 
 /*********************************************** 
  * Gallery: playing video
@@ -332,6 +377,13 @@ h1, h2, h3 {
 		.playing #main #gallery li.current:hover .play {
 		    opacity: 1 !important;
 		}
+		
+		.playing #main #gallery li .details {
+            opacity: 0 !important;
+            background-position: 0 -100px;
+        }
+		
+		
 
 /*********************************************** 
  * Controls
@@ -356,15 +408,15 @@ h1, h2, h3 {
 	display: block;
 }
 .control#next {
-	background-image: url('../img/up.png');
+	background-image: url('gallery/up.png');
 	top: 230px;
 }
 .control#back {
-	background-image: url('../img/back.png');
+	background-image: url('gallery/back.png');
 	top: 310px;
 }
 .control#prev {
-	background-image: url('../img/down.png');
+	background-image: url('gallery/down.png');
 	top: 390px;
 }
 .control:hover {

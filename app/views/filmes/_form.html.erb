@@ -138,6 +138,18 @@
         <%= f.input_field :imagem, :style=> 'width: 400px'  %>
         <a href="#dialog-images" data-toggle="modal" title="Selecionar Imagem"><span class="add-on"><i class="icon-search"></i></span></a>
     <% end %>
+    
+
+	<%= f.input :categoria, priority: [ "Aventura" ], collection: [ "Ação", "Aventura","Adulto","Comédia", "Infantil", "Suspense", "Terror" ] %>
+
+	<%= f.input :tipo, collection: [ "Legendado", "Dublado", "3D - Legendado", "3D - Dublado" ] %>
+
+    <%= f.input :sala %>
+    
+    <%= f.input :inicio, :input_html => {:style=> 'width: 60px'} %>
+    
+    <%= f.input :fim, :input_html => {:style=> 'width: 60px'} %>
+    
 
 	<%= f.input :conteudo , :input_html => {:style=> 'width: 400px'} %>
 

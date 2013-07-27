@@ -6,14 +6,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>Projeto Hollywood</title>
-	<link rel="stylesheet" href="assets/filme.setup.css">
-	<link rel="stylesheet" href="assets/filme.style.css">
+	<link rel="stylesheet" href="assets/gallery.setup.css">
+	<link rel="stylesheet" href="assets/gallery.style.css">
 	<meta name="robots" content="noindex,nofollow">
 	
 	
 	<% javascript 'modernizr-2.0.min.js' %>
 	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+	<% javascript 'jquery.js' %>
 	<% javascript 'filmes.index.js' %>
 	<% javascript 'jquery.jc.videogallery.js' %>
 	<%= yield(:head) %>
@@ -56,59 +56,42 @@
 							<div class="title">
 								<h3><%= filme.titulo %> <span class="after"></span></h3>
 							</div>
-							<video preload="none" width="640" height="360" src="assets/filmes/godofwar.mp4"></video>
+							<!-- <video preload="none" width="640" height="360" src="assets/filmes/godofwar.mp4"></video> -->
+							
+							<!-- <video preload="none" width="640" height="360" 
+							       controls="controls"  class="video-stream" x-webkit-airplay="allow" data-youtube-id="N9oxmRT2YWw" 
+                                   src="<%= filme.url %>"></video> -->
+                            
+                                <video preload="none" width="640" height="360" src="<%= filme.url %> "></video> 
+                            
+                                <div class="details">
+                                    <strong>Sala: </strong><%= filme.sala %> - #<%= filme.id %>
+                                    <br/>
+                                    <strong>Tipo: </strong><%= filme.tipo %> <br/>
+                                    <strong>Categoria: </strong><%= filme.categoria %>
+                                    <br/>
+                                    <strong>Sinopse: </strong>
+                                    <%= filme.conteudo %>
+                                </div>
+    
+                                   
 							</section>
 						</div>
 					</li>			      
 			    <% end %>
 			
-				<li>
-					<div>
-						<section>	
-						<img src="assets/filmes/warhammer.jpg" />
-						<span class="back"></span>
-						<div class="title">
-							<h3>Warhammer<span class="after"></span></h3>
-						</div>
-						<video preload="none" width="640" height="360" src="assets/filmes/warhammer.mp4"></video>
-						</section>
-					</div>
-				</li>
-
-			
-				<li>
-					<div>	
-						<section>
-						<img src="assets/filmes/finalfantasy.jpg" />
-						<span class="back"></span>
-						<div class="title">
-							<h3>Final Fantasy<span class="after"></span></h3>
-						</div>
-						<video preload="none" width="640" height="360" src="assets/filmes/finalfantasy.mp4"></video>
-						</section>
-					</div>
-				</li>
-			
-				<li>
-					<div>	
-						<section>
-						<img src="assets/filmes/godofwar.jpg" />
-						<span class="back"></span>
-						<div class="title">
-							<h3>God of War<span class="after"></span></h3>
-						</div>
-						<video preload="none" width="640" height="360" src="assets/filmes/godofwar.mp4"></video>
-						</section>
-					</div>
-				</li>
-				
 			</ul>
 
 	    </div>
 	
 		<footer id="footer">
 			
-			<p>Projeto Hollywood - Engenharia de Software do Centro de Informática da UFPE de 2013.2</p>
+			<span>Projeto Hollywood - Engenharia de Software do Centro de Informática da UFPE de 2013.2</span>
+			
+			<div style="float:right">
+			    <%= link_to 'Admin', page_path('admin') %> |
+			    <%= link_to 'Sobre', page_path('about') %> |
+			</div>
 			
 		</footer>
 

@@ -1,24 +1,49 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Titulo:</strong>
-  <%= @filme.titulo %>
-</p>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=635727509788947";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-<p>
-  <strong>Url:</strong>
-  <%= @filme.url %>
-</p>
+<table>
+    <tr>
+       <td>
+           <a href="<%= @filme.url %>" title="Clique para assistir"> <img src="<%= @filme.imagem %>" /> </a>
+       </td> 
+       <td>
+           
+        <h3><%= @filme.titulo %></h3>
 
-<p>
-  <strong>Imagem:</strong>
-  <%= @filme.imagem %>
-</p>
+        <strong>Sala: </strong><%= @filme.sala %>
+        <br/>
+        
+        <strong>Tipo: </strong><%= @filme.tipo %>
+        <br/>
+             
+        <strong>Categoria: </strong><%= @filme.categoria %>
+        <br/>
 
-<p>
-  <strong>Conteudo:</strong>
-  <%= @filme.conteudo %>
-</p>
+        <strong>Horário: </strong>
+        <%= (@filme.inicio && @filme.inicio.strftime("%H:%M")) %> -
+        <%= (@filme.fim && @filme.fim.strftime("%H:%M")) %>
+        <br/> 
+        
+        <strong>Sinopse: </strong><br/>
+        <%= @filme.conteudo %>
+           
+       </td> 
+    <tr>    
+    
+</table>
+
+<div>    
+<div class="fb-comments" data-href=" <%= request.original_url %>" data-width="600" data-num-posts="10"></div>
+</div>
+
 
 <%= link_to 'Edit', edit_filme_path(@filme) %> |
 <%= link_to 'Back', filmes_path %>
