@@ -202,20 +202,64 @@
 				}
 				if(that.hasClass(conf.currentClass)) {
 					var videoNode = video[0];
-					if(body.hasClass('playing')) {
-						// Stop the video.
-						videoNode.pause();
-						videoNode.currentTime = 0;
+					
+					var youtubeID = this.getYouTubeIdFromUrl(videoNode.getAttribute('src'));
+					
+					if(body.hasClass('playing')) { // Stop the video.
+						if(!youtubeID){
+						      videoNode.pause();
+						      videoNode.currentTime = 0;
+						}else{
+						    $(videoNode).parent().find('iframe').remove();
+						}
 						body.removeClass('playing');
 					}
-					else {
-						// Play the video
-						videoNode.play();
+					else { // Play the video
+						
 						body.addClass('playing');
+						
+						if(!youtubeID){
+		                    videoNode.play();
+						}else{ // use Youtube player...
+						    
+						    var options = {
+                                'autohide': 2,'autoplay': 1,
+                                'controls': 1,'fs': 1,
+                                'loop': 0, 
+                                'showinfo': 0,
+                                'theme': 'light'
+                            };
+
+						    var youtubeURL = "http://www.youtube.com/embed/" + youtubeID + "?rel=0&showsearch=0&autohide=" + options.autohide;
+                            youtubeURL += "&autoplay=" + options.autoplay + "&controls=" + options.controls + "&fs=" + options.fs + "&loop=" + options.loop;
+                            youtubeURL += "&showinfo=" + options.showinfo + "&color=" + options.color + "&theme=" + options.theme;
+    						
+    						var playerHtml = this.getYouTubePlayer(youtubeURL, 640, 360);
+    						
+    						$(playerHtml).insertAfter(videoNode);
+    						$(videoNode).css('display','none');
+						}
+
 					}
 				}
 				
-			}
+			},
+			
+			getYouTubeIdFromUrl : function(youtubeURL){
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+                var match = youtubeURL.match(regExp);
+                if (match && match[2].length==11){
+                    return match[2];
+                } else {
+                    return false;
+                }
+           },
+           
+           getYouTubePlayer : function(URL, width, height) {
+                var YouTubePlayer = '<iframe title="YouTube video player" style="margin:0; padding:0;" width="' + width + '" ';
+                YouTubePlayer += 'height="' + height + '" src="' + URL + '" frameborder="0" allowfullscreen></iframe>';
+                return YouTubePlayer;
+           }
 			
 		});
 		

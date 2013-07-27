@@ -1,4 +1,6 @@
 <ul class="nav">
-  <li><%= link_to 'Home', root_path %></li>
-  <li><%= link_to 'About', page_path('about') %></li>
+  <li><a href="<%= root_url%>" target="blank">Principal</a></li>
+  <!-- <li><%= link_to 'Principal', root_path %></li> -->
+  <li><%= link_to 'Admin', page_path('admin') %></li>
+  <li><%= link_to 'Sobre', page_path('about') %></li>
 </ul>
