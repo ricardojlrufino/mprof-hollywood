@@ -1,6 +1,7 @@
 class FilmesController < ApplicationController
   before_action :set_filme, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!, only: [:show, :new, :edit, :create, :update, :destroy]
+  
   # GET /filmes
   # GET /filmes.json
   def index
@@ -18,7 +19,7 @@ class FilmesController < ApplicationController
   end
 
   # GET /filmes/new
-  def new
+  def new 
     @filme = Filme.new
     @images = Dir.glob("app/assets/images/filmes/*.jpg")
   end

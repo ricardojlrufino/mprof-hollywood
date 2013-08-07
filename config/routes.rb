@@ -1,5 +1,10 @@
 MprofHollywood::Application.routes.draw do
-  resources :filmes
+  devise_for :users
+  resources :filmes do
+    collection do
+      get 'list'
+    end
+  end
 
   root :to => 'filmes#index'
 end
