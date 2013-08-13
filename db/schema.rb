@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130807135542) do
+
+ActiveRecord::Schema.define(version: 20130813032918) do
 
   create_table "filmes", force: true do |t|
     t.string   "titulo"
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 20130807135542) do
     t.string   "sala"
     t.time     "inicio"
     t.time     "fim"
+    t.boolean  "destaque"
   end
 
   create_table "users", force: true do |t|

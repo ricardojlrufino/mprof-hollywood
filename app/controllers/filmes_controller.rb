@@ -16,6 +16,9 @@ class FilmesController < ApplicationController
   # GET /filmes/1
   # GET /filmes/1.json
   def show
+    #start_time = @filme.inicio
+    #end_time = @filme.fim
+    #puts ">>>>" +  ((end_time - start_time) / 1.minutes).round.to_s
   end
 
   # GET /filmes/new
@@ -63,10 +66,16 @@ class FilmesController < ApplicationController
   # DELETE /filmes/1.json
   def destroy
     @filme.destroy
-    respond_to do |format|
-      format.html { redirect_to filmes_url }
-      format.json { head :no_content }
-    end
+    
+    redirect_to action: 'search'
+
+  end
+  
+  def search
+    @q = Filme.search(params[:q])
+    @filmes = @q.result(distinct: true)
+  #index
+  #render :index
   end
 
   private

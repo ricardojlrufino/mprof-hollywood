@@ -140,19 +140,32 @@
     <% end %>
     
 
-	<%= f.input :categoria, priority: [ "Aventura" ], collection: [ "Ação", "Aventura","Adulto","Comédia", "Infantil", "Suspense", "Terror" ] %>
+  <div class="row-fluid">
+    <div class="span3">
+	   <%= f.input :categoria, priority: [ "Aventura" ], collection: [ "Ação","Animação","Aventura","Chanchada","Cinema catástrofe","Comédia","Comédia romântica","Comédia dramática","Comédia de ação","Documentários","Drama","Espionagem","Erótico","Fantasia","Faroeste (ou western)","Ficção científica","Franchise/Séries","Guerra","Musical","Filme noir","Policial","Pornochanchada","Pornográfico","Romance","Suspense","Terror (ou horror)"] %>
+    </div>
+    <div class="span3">
+	   <%= f.input :tipo, collection: [ "2D - Legendado", "2D - Dublado", "3D - Legendado", "3D - Dublado" ] %>
+    </div>
+    <div class="span3">
+        <%= f.input :sala %>
+    </div>
+  </div>
 
-	<%= f.input :tipo, collection: [ "Legendado", "Dublado", "3D - Legendado", "3D - Dublado" ] %>
-
-    <%= f.input :sala %>
-    
-    <%= f.input :inicio, :input_html => {:style=> 'width: 60px'} %>
-    
-    <%= f.input :fim, :input_html => {:style=> 'width: 60px'} %>
-    
-
-	<%= f.input :conteudo , :input_html => {:style=> 'width: 400px'} %>
-
+ <div class="row-fluid">
+    <div class="span3">    
+        <%= f.input :destaque%>
+    </div>
+    <div class="span3">    
+        <%= f.input :inicio, :input_html => {:style=> 'width: 60px'} %>
+    </div>
+    <div class="span3">   
+        <%= f.input :fim, :input_html => {:style=> 'width: 60px'} %>
+     </div>
+  </div>
+  
+  <%= f.input :conteudo , :input_html => {:style=> 'width: 400px'} %>
+  
 </div>
 
 <div class="form-actions">

@@ -1,0 +1,25 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Categoria</th>
+      <th>Tipo</th>
+      <th>Sala</th>
+      <th>#</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @filmes.each do |filme| %>
+      <tr>
+        <td><%= filme.titulo %></td>
+        <td><%= filme.categoria %></td>
+        <td><%= filme.tipo %></td>
+        <td><%= filme.sala %></td>
+        <td><%= link_to 'Detalhes', filme %></td>
+        <td><%= link_to 'Editar', edit_filme_path(filme) %></td>
+        <td><%= link_to 'Excluir', filme, method: :delete, data: { confirm: 'Tem Certeza ?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

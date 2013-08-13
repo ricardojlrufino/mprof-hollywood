@@ -1,0 +1,45 @@
+
+<fieldset>
+    <legend>Buscar Filmes</legend>
+<%= search_form_for @q, url: search_filmes_path,
+                        html: { method: :post } do |f| %>
+  <%= f.label :titulo %>
+  <%= f.text_field :titulo_cont, :style=> 'width: 800px'  %>
+  
+  <div class="row-fluid">
+      <div class="span3">
+           <%= f.label :categoria %>
+           <%= f.select :categoria_eq, options_for_select([['--Todos--', ''], ["Ação"], ["Aventura"],["Adulto"],["Comédia"], ["Infantil"], ["Suspense"], ["Terror"] ], :selected => :profile_subject) %>
+      </div>
+      <div class="span3">
+          <%= f.label :tipo %>
+          <%= f.select :tipo_eq, options_for_select([['--Todos--', ''], ["2D - Legendado"], ["2D - Dublado"],["3D - Legendado"],["3D - Dublado"]], :selected => :profile_subject) %>  
+      </div>    
+      <div class="span3">
+          <%= f.label :sala %>
+          <%= f.text_field :sala_cont %>  
+      </div>
+  </div> 
+  <div class="row-fluid" style="display: none">
+      <div class="span3">
+           <%= f.label :destaque %>
+           <%= f.text_field :destaque_eq %>
+      </div>
+      <div class="span3">
+          <%= f.label :inicio %>
+          <%= f.text_field :inicio_eq %>
+      </div>    
+      <div class="span3">
+          <%= f.label :fim %>
+          <%= f.text_field :fim_eq %>
+      </div>  
+  </div>  
+
+  <%= f.submit :class=>'btn btn-primary' %>
+<% end %>
+</fieldset>
+
+<fieldset>
+    <legend>Filmes Encontrados</legend>
+<%= render 'table' %>
+</fieldset>
