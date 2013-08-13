@@ -1,27 +1,36 @@
 <% content_for :title do %>About<% end %> <h3>Admin Page</h3>
 
+
 <div class="row-fluid">
     <ul class="thumbnails">
         <li class="span2">
-            <a href="#" class="thumbnail text-center"> <img src="/assets/icons/users.png" > 
-                <span>Cadastrar Usuários</span>
+            <a href="/users/sign_up" class="thumbnail text-center"> <img src="/assets/icons/users.png" > 
+                <% if user_signed_in? %>
+                    <span>Cadastrar Usuários</span>
+                <% end %>
+                <% if !user_signed_in? %>
+                    <span>Cadastrar-se</span>
+                <% end %>
             </a>
         </li>
+        <% if user_signed_in? %>
         <li class="span2">
             <a href="<%= new_filme_path %>" class="thumbnail text-center"> <img src="/assets/icons/film.png" > 
             <span>Cadastrar Filmes</span>
             </a>
         </li>
+        <% end %>
         <li class="span2">
             <a href="/filmes/search" class="thumbnail text-center"> <img src="/assets/icons/find.png" > 
             <span>Buscar Filmes</span>
             </a>
         </li>
-
+        <% if user_signed_in? %>
         <li class="span2">
-            <a href="#" class="thumbnail text-center"> <img src="/assets/icons/login.png" >
+            <a href="/users/edit" class="thumbnail text-center"> <img src="/assets/icons/login.png" >
             <span>Alterar Senha</span> 
             </a>
         </li>
+        <% end %>
     </ul>
 </div>

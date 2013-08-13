@@ -9,4 +9,5 @@ MprofHollywood::Application.routes.draw do
   end  
 
   root :to => 'filmes#index'
+  
 end

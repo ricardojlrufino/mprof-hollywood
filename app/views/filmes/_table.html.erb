@@ -17,8 +17,10 @@
         <td><%= filme.tipo %></td>
         <td><%= filme.sala %></td>
         <td><%= link_to 'Detalhes', filme %></td>
+        <% if user_signed_in? %>
         <td><%= link_to 'Editar', edit_filme_path(filme) %></td>
         <td><%= link_to 'Excluir', filme, method: :delete, data: { confirm: 'Tem Certeza ?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
